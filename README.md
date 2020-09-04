@@ -1,5 +1,7 @@
 # Exact Histogram Specification & Equalization of Grayscale Images
 
+[![View Exact histogram equalization and specification on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/26309-exact-histogram-equalization-and-specification)
+
 Histogram equalization is a traditional image enhancement technique which aims to improve visual appearance of the image by assigning equal number of pixels to all available intensity values. Histogram specification is a generalization of histogram equalization and is typically used as a standardization technique to normalize image with respect to a desired probability mass function or properties such as mean intensity, energy and entropy. Unlike classical histogram specification, exact histogram specification algorithm implemented here is able to modify the histogram of any image almost exactly (see snapshot).
 
 The .m file `exact_histogram.m` is an implementation of an exact histogram specification algorithm described in:
