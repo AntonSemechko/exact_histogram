@@ -48,13 +48,13 @@ TypeList={'uint8','uint16'};
 Type=class(im);
 idx_class=strcmpi(Type,TypeList);
 
-if isempty(find(idx_class,1))
+if ~any(idx_class)
     err='Acceptable data formats for the input image are 8-bit and 16-bit.';
     error(err)
 end
 
 % Maximum number of gray levels
-if find(idx_class,1)==1
+if idx_class(1)
     L=2^8;
 else
     L=2^16;
@@ -111,17 +111,17 @@ clear varargin
 
 Ntotal=M*N; % total number of image pixels
 
-% If binary mask is given only sort pixels under the mask, set values to 0
+% If binary mask is given, only sort pixels under the mask; set values to 0
 % outside the mask
 if chk_mask
-    Ntotal=numel(find(bw)); % total number of foreground pixels
+    Ntotal=nnz(bw(:));      % total number of foreground pixels
     
-    pix_ord=im_sort(bw); % pixel order values under the mask
-    idx_o=[1:Ntotal]'; % original pixel positions under the mask
+    pix_ord=im_sort(bw);    % pixel order values under the mask
+    idx_o=(1:Ntotal)';      % original pixel positions under the mask
     im_sort(~bw)=0;
     
     [pix_ord,idx]=sort(pix_ord,'ascend');
-    idx_o=idx_o(idx); % original pixel position sorted according to pixel order
+    idx_o=idx_o(idx);       % original pixel position sorted according to pixel order
     clear pix_ord & idx
     [idx_o,idx]=sort(idx_o,'ascend'); % pixel order sorted according to position under the mask
     clear idx_o
@@ -177,13 +177,13 @@ Hraw=reshape(Hraw,M,N);
 
 if chk_mask
     im(bw)=0;
-    if find(idx_class)==1
-        Hraw=im+uint8(Hraw);
+    if idx_class(1)
+        Hraw=im + uint8(Hraw);
     else
-        Hraw=im+uint16(Hraw);
+        Hraw=im + uint16(Hraw);
     end
 else
-	if find(idx_class)==1
+    if idx_class(1)
         Hraw=uint8(Hraw);
     else
         Hraw=uint16(Hraw);

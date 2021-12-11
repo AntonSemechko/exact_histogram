@@ -48,11 +48,11 @@ im_sort=[];
 OA=[];
     
 for i=1:P
-    FR=double(im(:,:,1));
+    
+    FR=zeros(M,N,6);
+    FR(:,:,1)=double(im(:,:,1));
     for j=1:5
-        FR_j=imfilter(double(im(:,:,1)),F{j});
-        FR=cat(3,FR,FR_j);
-        clear FR_j
+        FR(:,:,j+1)=imfilter(double(im(:,:,1)),F{j},'replicate');
     end
     im(:,:,1)=[]; % free up some memory
     
